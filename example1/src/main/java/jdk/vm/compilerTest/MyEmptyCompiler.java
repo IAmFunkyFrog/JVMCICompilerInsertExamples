@@ -6,10 +6,12 @@ import jdk.vm.ci.hotspot.*;
 import jdk.vm.ci.runtime.JVMCICompiler;
 
 public class MyEmptyCompiler implements JVMCICompiler {
-
     @Override
     public CompilationRequestResult compileMethod(CompilationRequest request) {
-        return HotSpotCompilationRequestResult.failure("Empty compiler can`t compile any method", false);
+        HotSpotCompilationRequest hotSpotCompilationRequest = (HotSpotCompilationRequest) request;
+        HotSpotResolvedJavaMethod method = hotSpotCompilationRequest.getMethod();
+        HotSpotResolvedObjectType holder = method.getDeclaringClass();
+        // other code
     }
 
     @Override
